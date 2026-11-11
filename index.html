@@ -1,0 +1,424 @@
+<title>שיחות עם בן מתבגר</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800&display=swap">
+<style>
+/* Concept: a calm field manual. One teal accent, cool neutrals, red/green only for "instead of / say". */
+:root{
+  --bg:#f4f7f8; --card:#ffffff; --fg:#1b2530; --muted:#566471; --line:#d9e1e6;
+  --accent:#0f6b75; --accent-soft:#e3f1f2;
+  --no:#9f3535; --no-bg:#fbeeee; --yes:#1d6847; --yes-bg:#e8f5ee;
+  --warn:#7a5200; --warn-bg:#fff3d6;
+  --font:"Heebo","Segoe UI",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11171c; --card:#192129; --fg:#e5ebef; --muted:#97a6b1; --line:#2a353f;
+    --accent:#62c3cb; --accent-soft:#16282b;
+    --no:#e69393; --no-bg:#2b1d1f; --yes:#82d1a8; --yes-bg:#16281f;
+    --warn:#ebc86d; --warn-bg:#2a2411; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11171c; --card:#192129; --fg:#e5ebef; --muted:#97a6b1; --line:#2a353f;
+  --accent:#62c3cb; --accent-soft:#16282b;
+  --no:#e69393; --no-bg:#2b1d1f; --yes:#82d1a8; --yes-bg:#16281f;
+  --warn:#ebc86d; --warn-bg:#2a2411; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{direction:rtl}
+body{
+  margin:0; background:var(--bg); color:var(--fg); font-family:var(--font);
+  font-size:16px; line-height:1.65;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:24px 56px;
+}
+.wrap{max-width:860px; margin-inline:auto; display:flex; flex-direction:column; gap:20px; min-width:0}
+h1{font-size:clamp(1.8rem,5vw,2.5rem); line-height:1.15; margin:0; font-weight:800; text-wrap:balance}
+h2{font-size:1.5rem; margin:0; font-weight:800; text-wrap:balance}
+h3{font-size:1.05rem; margin:0; font-weight:700}
+p{margin:0}
+.lead{color:var(--muted); font-size:1.05rem; max-width:62ch}
+nav{display:flex; flex-wrap:wrap; gap:8px}
+nav a{
+  color:var(--accent); background:var(--accent-soft); text-decoration:none;
+  padding:6px 12px; border-radius:6px; font-weight:500; font-size:.92rem;
+}
+nav a:focus-visible,nav a:hover{outline:2px solid var(--accent); outline-offset:2px}
+.box{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:16px 18px; display:flex; flex-direction:column; gap:8px}
+.box.core{border-inline-start:5px solid var(--accent)}
+.box.warn{background:var(--warn-bg); border-color:transparent; color:var(--warn)}
+.box.warn strong{color:inherit}
+.cols{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px}
+.cols>*{min-width:0}
+section{display:flex; flex-direction:column; gap:14px; scroll-margin-top:12px}
+.sechead{display:flex; flex-direction:column; gap:6px; padding-top:14px; border-top:2px solid var(--fg)}
+.sechead .tag{color:var(--accent); font-weight:700; font-size:.85rem; letter-spacing:.04em}
+.idea{color:var(--muted)}
+table{border-collapse:collapse; width:100%; font-size:.95rem; background:var(--card)}
+th,td{padding:8px 10px; text-align:start; border-bottom:1px solid var(--line); vertical-align:top}
+th{font-size:.82rem; color:var(--muted); font-weight:700}
+.scroll{overflow-x:auto; border:1px solid var(--line); border-radius:8px}
+.sc{background:var(--card); border:1px solid var(--line); border-radius:8px; padding:14px 16px; display:flex; flex-direction:column; gap:8px; break-inside:avoid}
+.sc h3{margin-bottom:2px}
+.say{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:8px}
+.no,.yes{padding:9px 12px; border-radius:6px; font-size:.97rem}
+.no{background:var(--no-bg); color:var(--fg); border-inline-start:4px solid var(--no)}
+.yes{background:var(--yes-bg); color:var(--fg); border-inline-start:4px solid var(--yes)}
+.no b{color:var(--no)} .yes b{color:var(--yes)}
+.no b,.yes b{display:block; font-size:.78rem; letter-spacing:.04em; margin-bottom:2px}
+.yes ul{margin:4px 0 0; padding-inline-start:20px} .yes li{margin:2px 0}
+.why{color:var(--muted); font-size:.93rem}
+.why b{color:var(--accent)}
+@media (max-width:620px){ .say{grid-template-columns:1fr} }
+.check ol{margin:0; padding-inline-start:22px} .check li{margin:4px 0}
+.foot{color:var(--muted); font-size:.88rem}
+.tabs{display:flex; gap:0; border-bottom:2px solid var(--line)}
+.tab{
+  font:inherit; font-weight:700; color:var(--muted); background:none; border:0;
+  padding:12px 18px; cursor:pointer; border-bottom:4px solid transparent; margin-bottom:-2px;
+}
+.tab[aria-selected="true"]{color:var(--accent); border-bottom-color:var(--accent)}
+.tab:focus-visible{outline:2px solid var(--accent); outline-offset:-2px}
+.panel{display:flex; flex-direction:column; gap:20px; min-width:0}
+.read{display:flex; flex-direction:column; gap:12px; max-width:68ch}
+.read h2{margin-top:10px}
+.read p{font-size:1.04rem}
+.pull{
+  font-size:1.25rem; font-weight:700; line-height:1.45; color:var(--accent);
+  border-inline-start:5px solid var(--accent); padding:4px 16px; text-wrap:balance;
+}
+.loop{margin:0; padding:0; list-style:none; display:flex; flex-direction:column; gap:0; counter-reset:l}
+.loop li{
+  position:relative; background:var(--card); border:1px solid var(--line); border-radius:8px;
+  padding:10px 14px 10px 14px; margin-bottom:22px; counter-increment:l;
+}
+.loop li:not(:last-child)::after{
+  content:""; position:absolute; inset-inline-start:50%; bottom:-17px; width:2px; height:12px; background:var(--accent);
+}
+.loop li:last-child{margin-bottom:0; border-color:var(--accent); background:var(--accent-soft)}
+.loop b{color:var(--accent)}
+.vs td:first-child{font-weight:700; white-space:nowrap}
+.srcs{margin:0; padding-inline-start:20px; display:flex; flex-direction:column; gap:4px}
+@media print{
+  .panel[hidden]{display:flex!important} .tabs{display:none}
+  body{background:#fff; color:#000; padding:0} nav{display:none}
+  .sc,.box{break-inside:avoid} section{break-before:auto}
+}
+</style>
+
+<div class="wrap">
+<header style="display:flex;flex-direction:column;gap:12px">
+  <h1>שיחות עם בן מתבגר</h1>
+  <p class="lead">סיכום של "המשבר של הבנים", ספרו של ד"ר אורי וינבלט. בלשונית הראשונה: מה הבעיה ולמה, ומאיפה השיטה. בשנייה: מה עושים ומה אומרים בכל מצב. הניסוח והדוגמאות שלי, ברוח הספר.</p>
+</header>
+
+<div class="tabs" role="tablist" aria-label="חלקי הדף">
+  <button class="tab" role="tab" id="t-idea" aria-controls="p-idea" aria-selected="true" type="button">הרעיון של הספר</button>
+  <button class="tab" role="tab" id="t-practice" aria-controls="p-practice" aria-selected="false" type="button">מה עושים ואומרים</button>
+</div>
+
+<div class="panel" id="p-idea" role="tabpanel" aria-labelledby="t-idea">
+  <div class="read">
+    <p class="pull">הבן שלכם לא עצלן ולא חצוף. הוא מתבייש, ובושה גורמת לאנשים להסתתר.</p>
+    <p>זה כל הספר בשתי שורות. כל השאר הוא ההסבר איך זה קורה, למה דווקא היום ודווקא לבנים, ומה אפשר לעשות.</p>
+
+    <h2>אם זה נשמע מוכר</h2>
+    <p>הספר נפתח בהורים של תשעה בנים, בגילים 10 עד 25. אחד מתמוטט מכל קושי. אחד לא עוזב את המחשב, וכשלוקחים לו אותו אומר שמשעמם לו. אחד לא הולך לבית ספר כבר חודשים. אחד לא נפגש עם חברים. אחד לא מתעניין בכלום, אפילו לא בבנות. אחד עסוק כל היום בלהשיג גראס. אחד בצבא ורוצה לעזוב. אחד לא יוצא לעבודה כי "זה מיותר".</p>
+    <p>אם בבית שלכם יש ילד אחד כזה, זה כואב. מה שהספר טוען הוא שזה לא מקרה בודד. זו תופעה שגדלה, ויש לה הסבר.</p>
+
+    <h2>בעיה חדשה בכל דור</h2>
+    <p>לכל תקופה יש קושי רגשי שבולט בה. לפני כמאה ועשרים שנה, כשפרויד בנה את משנתו, הוא התבסס הרבה על היסטריה, שסבלו ממנה בעיקר נשים, והיום היא כמעט לא קיימת. בשנות ה-70 וה-80 נפוצו הפרעות אכילה, בעיקר אצל בנות. בשנות ה-90 ובתחילת שנות ה-2000 היה גל של בני נוער שחתכו את עצמם. ועכשיו, לפי המחבר, מתפתחת בעיה חדשה שהנפגעים העיקריים שלה הם בנים: הסתגרות, הימנעות, ירידה במוטיבציה, אדישות ותחושה שאין מטרה.</p>
+    <p>הנקודה: הקושי הרגשי של דור אחד לא מוכיח שמשהו "מקולקל" באנשים. הוא משקף את התקופה. והתקופה שלנו השתנתה מאוד.</p>
+
+    <h2>למה דווקא בנים, ולמה עכשיו</h2>
+    <p>בחמש-עשרה השנים האחרונות הכול השתנה: טלפונים חכמים, אינטרנט, משחקי מחשב. הם משפיעים על שינה, על תקשורת, על רומנטיקה. כולנו מושפעים, אבל לבנים יש רגישות מיוחדת, כי הם הצרכנים הגדולים של משחקי מחשב.</p>
+    <div class="scroll"><table class="vs">
+      <thead><tr><th></th><th>בנות (בדרך כלל)</th><th>בנים (בדרך כלל)</th></tr></thead>
+      <tbody>
+        <tr><td>מה עושים עם הטלפון</td><td>מתקשרים עם אנשים</td><td>משחקים</td></tr>
+        <tr><td>איפה הם בחופש</td><td>בחוץ, עם חברות</td><td>בבית, מול מסך</td></tr>
+      </tbody></table></div>
+    <p>פעם מטפלים עזרו להורים להחזיר הביתה בנים שמסתובבים בחוץ כל הלילה. היום הם עוזרים להוציא את הבן החוצה.</p>
+    <p>ועוד שינוי: בנים היום מצפים שהחיים יהיו כיף כל הזמן. קושי וסבל לא נתפסים כחלק טבעי מלמידה, אלא כמשהו לא הוגן שמבטיח כישלון. אז ברגע הראשון של קושי, הם פורשים.</p>
+
+    <h2>האבחנה שמפספסת</h2>
+    <p>כשבנים כאלה מגיעים לאנשי מקצוע, הם לרוב מאובחנים עם דיכאון או חרדה. אבל הם לא באמת מתאימים לקריטריונים. הם יותר מנותקים מאשר עצובים, ויותר מסרבים מאשר מפחדים. הניתוק והסירוב הם כיסוי לרגש שלא מייחסים לו מספיק חשיבות: בושה.</p>
+
+    <h2>בושה: הרגש החשוב ביותר בחיי בנים</h2>
+    <p>בושה היא רגש שבו אנחנו שופטים את עצמנו ומגיעים למסקנה שאנחנו לא מספיק טובים. היא לא קשורה רק למשהו מביך שעשינו. היא תחושה של "יש בי משהו פגום".</p>
+    <p><b>למה יש לנו אותה בכלל?</b> לפי הספר, היא התפתחה כדי לשמור על מקומנו בקבוצה. בעבר, להיזרק מהקבוצה היה כמעט גזר דין מוות, ולכן המוח שלנו מגיב בעוצמה לכל סימן שאנחנו עלולים להיפסל.</p>
+    <p><b>למה קשה לזהות אותה?</b> בעברית כמעט לא אומרים "בושה". אומרים עלבון, פגיעה בכבוד, השפלה, ערך עצמי נמוך, "לא שייך". ובנים כמעט אף פעם לא אומרים שהם מתביישים. הבושה מתחפשת: לכעס, לאדישות, ל"לא אכפת לי".</p>
+    <p><b>מה היא גורמת לעשות?</b> להסתתר. אדם שמתבייש לא רוצה שיראו אותו, לכן הוא שותק, מתרחק, או מתפרץ כדי שלא ייגעו בו.</p>
+    <p class="pull">ובושה בעוצמה נמוכה היא דווקא טובה: היא מה שמאפשר לנו לבקש עזרה. הבעיה היא כשהיא חזקה מדי.</p>
+
+    <h2>המעגל שנסגר</h2>
+    <p>ככה הבושה, המשחק וההורים נכנסים לתוך לולאה אחת:</p>
+    <ol class="loop">
+      <li><b>קושי.</b> בית ספר, חברים, ציפיות. הבן חווה כישלון.</li>
+      <li><b>בושה.</b> "אני לא מספיק טוב."</li>
+      <li><b>בריחה.</b> להתנתק, לא ללכת, לא לנסות. זה מרגיע מיד.</li>
+      <li><b>המשחק.</b> שם הוא גיבור, ושם אין בושה. הפער בין שם לבין החיים נהיה גדול יותר.</li>
+      <li><b>הורים נלחצים.</b> "אתה לא עושה כלום", "אתה תמיד במחשב." זה נשמע לו כאשמה, ומוסיף בושה.</li>
+      <li>הבן מסתגר עוד, וחוזר לתחילת המעגל.</li>
+    </ol>
+    <p>ברוב הבתים כל הצדדים רוצים טוב. אבל מה שההורים אומרים מתוך דאגה הוא בדיוק מה שמסגיר את הבן עוד יותר פנימה.</p>
+
+    <h2>מאיפה הגיעה השיטה</h2>
+    <p>המחבר הוא פסיכולוג קליני, מנהל "מכון בנים", ומטפל בבנים ובהוריהם. יש לו דוקטורט בפסיכולוגיה מאוניברסיטת תל אביב והוא מרצה במכונים לטיפול משפחתי באירופה. לפי רשימת המקורות בסוף הספר, השיטה נשענת על שלושה דברים:</p>
+    <ul class="srcs">
+      <li><b>מחקר על בושה.</b> הספר מצטט חוקרים כמו פול גילברט (הבושה כמנגנון שמירה על מעמד חברתי), טרייסי ורובינס (רגשות כמו גאווה ובושה), הלן לואיס, תומס שף וברנה בראון.</li>
+      <li><b>שיטה שהמחבר עצמו פיתח.</b> במקורות מופיע ספר שלו מ-2018 בהוצאת Springer על "טיפול בוויסות בושה למשפחות". הספר הנוכחי הוא הגרסה להורים.</li>
+      <li><b>טיפול משפחתי.</b> הרעיון שההורים הם חלק מהפתרון ולא רק מהבעיה, ושמשנים בעיה דרך הקשר בין הילד להוריו.</li>
+    </ul>
+    <p>ועוד שלושה כיוונים שהספר מתבסס עליהם: חוקרי משחקים ומשחוק (ג'יין מקגוניגל), הספרות על בנים ועל התבגרות מאוחרת (ליאונרד סאקס, וורן פארל, ג'פרי ארנט), ומחקר על התמכרות (גבור מאטה, מארק סולאביץ').</p>
+    <p><i>הערה:</i> לא קראתי את "פתח דבר" של הספר, ושם ייתכן שהמחבר מספר בפירוט על מקור השיטה. הסעיף הזה מבוסס על הפרקים עצמם ועל רשימת המקורות.</p>
+
+    <h2>מה זה אומר עבורכם כהורים</h2>
+    <p>שלושה שינויים בראש, ואחריהם תבינו למה הלשונית השנייה בנויה כך:</p>
+    <div class="cols">
+      <div class="box core"><h3>1. לראות בושה, לא עצלות</h3><p class="why">כשהוא שותק או מתפרץ, לשאול את עצמכם: ממה הוא מתבייש עכשיו?</p></div>
+      <div class="box core"><h3>2. להוריד בושה לפני שפותרים</h3><p class="why">קודם להרגיע את הרגש. רק אז הוא יכול לשמוע פתרון.</p></div>
+      <div class="box core"><h3>3. סבלנות והתמדה</h3><p class="why">זה תהליך איטי, עם נסיגות. נחישות בלי נקמה.</p></div>
+    </div>
+    <p>בלשונית "מה עושים ואומרים" תמצאו מצבים מוכרים, כמו "הוא לא הולך לבית ספר" או "הוא כל היום במשחק", ואיך לדבר בהם כך שהבושה תרד ולא תעלה.</p>
+  </div>
+</div>
+
+<div class="panel" id="p-practice" role="tabpanel" aria-labelledby="t-practice" hidden>
+<nav aria-label="קפיצה לפרק">
+  <a href="#core">הרעיון</a><a href="#talk">שיחה</a><a href="#withdraw">הסתגרות</a><a href="#games">משחקים</a><a href="#weed">גראס</a><a href="#grow">התבגרות</a><a href="#check">צ'קליסט</a>
+</nav>
+
+<div class="box warn" role="note">
+  <strong>לפני שמתחילים</strong>
+  <p>אם הבן מאיים לפגוע בעצמו או באחרים, או שהקנאביס מעורר אצלו חרדה, חשדנות קיצונית או אלימות, זה לא מצב להתמודד איתו לבד. פנו מיד לאיש מקצוע. הדף נכתב מתוך קריאה בצילומי מסך של הספר, ולכן ייתכן שבקצה של פסקה חסרה שורה.</p>
+</div>
+
+<section id="core">
+  <div class="sechead"><span class="tag">פרק 1</span><h2>הרעיון המרכזי: בושה</h2></div>
+  <div class="box core">
+    <p><strong>הבן לא עצלן ולא חצוף. לרוב הוא מתבייש.</strong> לפי הספר, מתחת לניתוק ולסירוב יש בושה שאנחנו לא מייחסים לה מספיק חשיבות.</p>
+    <p>בושה גורמת לאדם להסתתר: לשתוק, להתפרץ או לברוח למחשב. כל מילה שמגבירה בושה סוגרת אותו עוד. כל מילה שמחלישה אותה פותחת אותו.</p>
+    <p><strong>המטרה בכל שיחה: קודם להוריד בושה, ורק אחר כך לפתור בעיה.</strong></p>
+  </div>
+  <div class="cols">
+    <div class="box"><h3>הלחץ "להצליח בגדול"</h3><p class="why">התרבות מעריכה רק הצלחה גדולה, ולהיות ממוצע נחשב כמעט מביש. בן שחושב שלא יצליח מעדיף לא לנסות.</p></div>
+    <div class="box"><h3>המשחק כמפלט</h3><p class="why">במשחק הוא גיבור. בחיים הוא מרגיש לא יוצלח. הפער הזה מושך אותו פנימה.</p></div>
+    <div class="box"><h3>לא לבדר אותו</h3><p class="why">אם ההורים מילאו לו כל רגע, הוא לא לומד להתחבר לעצמו. לפעמים עניין נולד דווקא מתוך שעמום.</p></div>
+  </div>
+</section>
+
+<section id="talk">
+  <div class="sechead"><span class="tag">פרק 2</span><h2>איך מדברים</h2><p class="idea">שתיקה היא הגנה. "לא יודע" לפעמים אומר באמת "אין לי מילים". שיחות קצרות וקלות, הרבה פעמים.</p></div>
+
+  <article class="sc"><h3>"איך היה בבית ספר?" והוא עונה "בסדר" או מתפרץ</h3>
+    <div class="say"><p class="no"><b>במקום</b>"למה אתה אף פעם לא מספר כלום?"</p>
+    <div class="yes"><b>אמרו</b><ul><li>לא לפתוח בשאלה על בית ספר כשהוא נכנס. לשאול משהו קטן: "אכלת משהו טוב?"</li><li>אם התפרץ: "שמתי לב שהשאלה הרגיזה אותך. סליחה, לא התכוונתי ללחוץ."</li></ul></div></div>
+    <p class="why"><b>למה:</b> "בית ספר" עלול להזכיר לו כישלון. שאלה שנראית לכם פשוטה מרגישה לו כחשיפה. התנצלות מראה שהשיחה בטוחה.</p></article>
+
+  <article class="sc"><h3>הוא עונה "לא יודע" על הכול</h3>
+    <div class="say"><p class="no"><b>במקום</b>"מה זאת אומרת לא יודע?! תחשוב!"</p>
+    <div class="yes"><b>אמרו (שאלה אמריקאית, עם כמה תשובות לבחירה)</b><ul><li>"אתה כועס על אחיך כי (א) הוא לקח לך את המחשב, (ב) הוא צעק עליך, או (ג) משהו אחר?"</li><li>"זה היה יותר מביך, מעצבן או מפחיד?"</li></ul></div></div>
+    <p class="why"><b>למה:</b> קל יותר לבחור מילה לרגש מאשר להמציא אותה, והבחירה נותנת לו שליטה. "גם א' וגם ב'" כבר התחלה של שיחה.</p></article>
+
+  <article class="sc"><h3>הוא שותק</h3>
+    <div class="say"><p class="no"><b>במקום</b>"אנחנו לא זזים מפה עד שתדבר."</p>
+    <p class="yes"><b>אמרו</b>"בא לי לשמוע ממך, אבל אין חובה. גם אם לא תדבר, זה בסדר מבחינתי."</p></div>
+    <p class="why"><b>למה:</b> כשמותר לו לשתוק, הוא לא צריך להתגונן, ואז דווקא יותר סביר שידבר.</p></article>
+
+  <article class="sc"><h3>צריך לדבר על משהו קשה (ציונים, היעדרויות)</h3>
+    <div class="say"><p class="no"><b>במקום</b>לפתוח ישר: "קיבלת 40 במתמטיקה, מה קורה איתך?"</p>
+    <div class="yes"><b>אמרו (הכנה מראש לשיחה)</b><ul><li>"אנחנו יודעים שאתה לא אוהב שיחות כאלה."</li><li>"אנחנו לא באים לפגוע בך או להעליב אותך."</li><li>"נהיה קצרים ולא נחפור."</li></ul></div></div>
+    <p class="why"><b>למה:</b> כשהוא יודע מראש מה עומד לקרות, הוא מרגיש פחות מותקף ומגיב רגוע יותר.</p></article>
+
+  <article class="sc"><h3>חדר מבולגן או יותר מדי מחשב (נדנודים)</h3>
+    <div class="say"><p class="no"><b>במקום</b>"אתה אף פעם לא מסדר!" "אתה כל הזמן במחשב!"</p>
+    <div class="yes"><b>אמרו (על עצמכם, לא עליו)</b><ul><li>"אני לא רוצה לכעוס עליך כל הזמן בגלל החדר."</li><li>"אכפת לי ממך, ואני דואג שהמחשב לוקח לך הרבה שעות."</li><li>"תמיד" הופך ל"לפעמים", "אף פעם" ל"לעיתים רחוקות".</li></ul></div></div>
+    <p class="why"><b>למה:</b> "אתה", "תמיד" ו"אף פעם" הן אשמה, והן מגבירות בושה. כשמדברים על הרגש שלכם, אין ממה להתגונן.</p></article>
+
+  <article class="sc"><h3>"אין לי סיכוי" או "אני אפס"</h3>
+    <div class="say"><p class="no"><b>במקום</b>"שטויות! אתה מוכשר! בפעם הבאה תצליח!"</p>
+    <div class="yes"><b>אמרו ("לפתור את הרגע", לא את הבעיה)</b><ul><li>"אני שומע שאתה מרגיש שאין לך סיכוי. זו הרגשה קשה."</li><li>"אם אני מבין נכון, אתה חושב: אם אשקיע ובכל זאת לא אצליח, יהיה עוד יותר גרוע?"</li><li>"אני לא בא עכשיו לתת פתרונות. רק רוצה להבין אותך."</li></ul></div></div>
+    <p class="why"><b>למה:</b> לפי הספר, עידוד כמו "לא נורא" לא עוזר ולפעמים מעמיק בושה. כשרואים את הרגש שלו, השיחה נפתחת.</p></article>
+
+  <article class="sc"><h3>הוא התפרץ, צעק או טרק דלת</h3>
+    <div class="say"><p class="no"><b>במקום</b>"איך אתה מדבר אלינו?! עונש!"</p>
+    <div class="yes"><b>אמרו (אחרי שכולם נרגעו)</b><ul><li>"שנינו התעצבנו. אני לא רוצה לפגוע בך, וחשוב לי לדבר על מה שקרה."</li><li>אם ענה "אז תדעו שגם אני כועס עליכם!": זו הזמנה להמשיך, לא חוצפה.</li></ul></div></div>
+    <p class="why"><b>למה:</b> תוקפנות היא דרך להתמודד עם כאב ובושה. עונש מגביר בושה, הרגעה מחלישה אותה.</p></article>
+
+  <article class="sc"><h3>אין שיחה בכלל, הוא כל היום בחדר</h3>
+    <div class="say"><p class="no"><b>במקום</b>להושיב אותו ל"שיחה רצינית" מול השולחן.</p>
+    <div class="yes"><b>עשו (דברו תוך כדי משהו)</b><ul><li>לבשל יחד, לנסוע באוטו, ללכת לטיול, לעשות ספורט.</li><li>להצטרף למשחק שלו ולשאול: "איך אתה במשחק הזה?"</li><li>הודעה קצרה בוואטסאפ: "רק רציתי שתדע שאני כאן."</li></ul></div></div>
+    <p class="why"><b>למה:</b> בשיחה ראש מול ראש הוא מרגיש חשוף. כשעושים משהו ביחד, זה פחות מסוכן. בהודעה כתובה הוא שולט במה שהוא חושף.</p></article>
+</section>
+
+<section id="withdraw">
+  <div class="sechead"><span class="tag">פרק 3</span><h2>בן שמסתגר, מתנתק ומסרב</h2><p class="idea">ההסתגרות היא פתרון: בלי החוץ אין כישלון ואין בושה. התפקיד שלכם להפסיק בעדינות לאפשר אותה, ובמקביל לבנות לו חוויות חיבור חדשות. צריך נחישות וסבלנות, והתהליך ארוך.</p></div>
+
+  <div class="box"><h3>סימנים שמדאיגים</h3><p class="why">נמצא בחדר כמעט כל הזמן. לא נפגש עם חברים גם כשמזמינים אותו. לא מרשה להוריו להיכנס לחדר בזמן משחק. מפסיק להתקלח. נמנע מארוחות משפחתיות. נעדר ממפגשים חברתיים ומשפחתיים.</p></div>
+
+  <article class="sc"><h3>הוא לא הולך לבית ספר</h3>
+    <div class="say"><p class="no"><b>במקום</b>"אתה חייב ללכת! אתה הורס לעצמך את העתיד!" או "כדאי לך להשקיע, תתקבל לאוניברסיטה."</p>
+    <div class="yes"><b>אמרו (התחברו להיגיון שלו)</b><ul><li>"נראה לנו שיש היגיון בזה שאתה לא משקיע."</li><li>"אם כל ההשקעה לא שווה בסוף, באמת לא ברור למה להשקיע."</li><li>"אנחנו יודעים שאתה רוצה להצליח, אתה פשוט לא מאמין שהמאמץ יביא אותך לשם."</li></ul></div></div>
+    <p class="why"><b>למה:</b> מאחורי הסירוב יש בדרך כלל אמונה "אין לי סיכוי". איומים ושכנועים מתנגשים בה. כשמבינים אותה, הוא מפסיק להתגונן.</p></article>
+
+  <article class="sc"><h3>הבן בבית: איך שומרים אותו "תלמיד"</h3>
+    <div class="yes"><b>עשו</b><ul><li>שעות שינה והשכמה קבועות.</li><li>לדאוג שחומרי לימוד ושיעורי בית יגיעו אליו.</li><li>לגייס חברים מהכיתה שייצרו איתו קשר.</li><li>ללכת לבית הספר במקומו ולהגיד לו: "דיברנו עם היועצת. מבחינתם אתה תלמיד לכל דבר."</li><li>"גם אם אינך הולך לבית הספר, אתה עדיין תלמיד. אלה המטלות שיש לך להיום."</li><li>להביא מורים פרטיים הביתה.</li></ul></div>
+    <p class="why"><b>למה:</b> בלי זהות של תלמיד, הוא חי בלי דרישות וחוסך מעצמו קושי, במחיר גדול. הורים מוותרים מהר כשאין תוצאות. כאן צריך התמדה.</p></article>
+
+  <article class="sc"><h3>מגבילים את המחשב</h3>
+    <div class="say"><p class="no"><b>במקום</b>"אנחנו לוקחים לך את המחשב כי אתה לא עושה כלום עם החיים שלך!"</p>
+    <div class="yes"><b>אמרו</b><ul><li>"כבר תקופה ארוכה אתה מסתגר ומתנתק מאיתנו ומאחרים. אתה חשוב לנו. אנחנו לא יכולים להכריח אותך לבוא איתנו או ללכת לבית הספר, אבל אנחנו גם לא יכולים לתמוך בהסתגרות. לכן אנחנו מגבילים את שעות המחשב."</li><li>להתכונן לתגובה חריפה, לא להסלים, ולהמשיך בשגרת הבית כרגיל.</li></ul></div></div>
+    <p class="why"><b>למה:</b> המטרה היא להפסיק לאפשר את ההסתגרות, לא להעניש. מסר מאשים מגביר בושה. מסר של "אכפת לנו" מחליש אותה.</p></article>
+
+  <article class="sc"><h3>הוא מסרב לכל דבר (חוג, עזרה בבית)</h3>
+    <div class="say"><p class="no"><b>במקום</b>לוותר ("אני אעשה בעצמי") או לבקר ("אתה לא עושה כלום!").</p>
+    <p class="yes"><b>אמרו</b>"אני מבין שאין לך כוח. בכל זאת, אני צריך שתוריד את הזבל." ולחזור על זה בשקט, בלי להיכנע לתלונות.</p></div>
+    <p class="why"><b>למה:</b> כשמתעקשים, הוא חווה דברים לא נעימים ולומד שהוא מסוגל לשרוד קושי.</p></article>
+
+  <article class="sc"><h3>הוא לא רוצה שיראו אותו</h3>
+    <div class="yes"><b>עשו (חשיפה מדורגת)</b><ul><li>לכבד את הצורך שלו להיות "בלתי נראה", אבל לא לוותר עליו לגמרי.</li><li>להכניס לחייו אדם נוסף שיבנה איתו קשר: חונך, מורה פרטי או מאמן. הוא לא צריך לפתור אותו, רק ליצור קשר.</li><li>לבקש מהאדם הזה: שכל מפגש יהיה חוויה טובה, לא להיעלב אם הבן מסרב, ולזכור שזה לוקח זמן.</li></ul></div>
+    <p class="why"><b>למה:</b> הוא מרגיש שכולם שופטים אותו. מפגשים קטנים ובטוחים מלמדים אותו שאפשר להיראות בלי שיקרה אסון.</p></article>
+
+  <article class="sc"><h3>הוא אומר "אני לא יודע מה אני מרגיש"</h3>
+    <div class="say"><p class="no"><b>במקום</b>"איך אתה לא יודע? תחשוב!"</p>
+    <p class="yes"><b>אמרו</b>"טוב שאתה יכול להודות בזה." ואם שואל "במה זה עוזר?": "עצם זה שאתה אומר לי את זה כאן, עכשיו, אומר שאתה מתחבר לרגשות שלך, וזו התחלה מצוינת."</p></div>
+    <p class="why"><b>למה:</b> שיחה כנה היא "התרופה לבושה". כשמחזקים כנות, הוא לומד שמותר להיות חשוף.</p></article>
+
+  <article class="sc"><h3>עוד כלים מהפרק</h3>
+    <div class="yes"><ul><li><b style="display:inline">אחים ואחיות:</b> לבקש מהם להזמין אותו לטיול, למשחק או לסרט. הקשר איתם נחווה פחות מסוכן מהקשר עם הורים.</li><li><b style="display:inline">נסיגות:</b> לצפות להן מראש ולא להיבהל. נסיגה שעוברים בהצלחה מלמדת שאפשר לטעות ולהמשיך.</li><li><b style="display:inline">התמדה:</b> מסוגל לקחת זמן רב, עם עליות וירידות, ובלי ציפייה לשינוי מהיר.</li></ul></div></article>
+</section>
+
+<section id="games">
+  <div class="sechead"><span class="tag">פרק 4</span><h2>משחקי מחשב</h2><p class="idea">המשחק לא האויב. הוא ממלא צרכים אמיתיים: הצלחה, שייכות, שליטה ועניין. אם רק אוסרים, הוא מאבד גם את זה ונשאר בלי כלום. נכנסים לעולם שלו ומתעניינים באמת.</p></div>
+
+  <article class="sc"><h3>"הוא רק משחק, ואני לא מבין מה הוא רואה בזה"</h3>
+    <div class="say"><p class="no"><b>במקום</b>"אתה מבזבז את החיים שלך על משחק!"</p>
+    <div class="yes"><b>אמרו (שבו לידו, בלי להפריע באמצע)</b><ul><li>"תראה לי מה עושים בזה?"</li><li>"מה הכי כיף לך במשחק הזה?"</li><li>"מה אתה חושב שאתה לומד מהמשחק?"</li></ul></div></div>
+    <p class="why"><b>למה:</b> כשהורים מתעניינים באמת, הבן מרגיש שרואים אותו ונפתח יותר.</p></article>
+
+  <article class="sc"><h3>כמה זמן מותר לשחק</h3>
+    <div class="yes"><b>החליטו על גישה אחת, ושניכם מסכימים</b><ul><li><b style="display:inline">מגבילה:</b> שעות קבועות מראש, בלי משא ומתן באמצע.</li><li><b style="display:inline">מכילה:</b> לא מגבילים, אבל נכנסים לעולמו ומנחים.</li><li>אם מגבילים, צריך לתת לו חלופות לאותו זמן. בלי זה ההגבלה תיכשל.</li></ul></div>
+    <p class="why"><b>למה:</b> הגבלה לבדה מתעלמת מהצורך שהמשחק ממלא. הכלה לבדה מתעלמת מהסכנה של התמכרות. הכי חשוב שההורים מסכימים ביניהם.</p></article>
+
+  <article class="sc"><h3>הוא כועס כשמבקשים להפסיק</h3>
+    <div class="say"><p class="no"><b>במקום</b>"די! מספיק! תכבה עכשיו!"</p>
+    <p class="yes"><b>אמרו</b>"בעוד חצי שעה נסיים. אני יודע שזה לא קל להפסיק." ובסוף: "ראיתי שהצלחת להפסיק, תודה."</p></div>
+    <p class="why"><b>למה:</b> אחרי שעות של משחק, ההפסקה עצמה היא מאמץ. הכרה בו עוזרת לו לרצות לעשות את זה שוב.</p></article>
+
+  <article class="sc"><h3>שואלים על המשחק בלי לתקוף</h3>
+    <div class="say"><p class="no"><b>במקום</b>"המשחק הזה מלמד אותך אלימות, נכון?"</p>
+    <div class="yes"><b>אמרו (שאלה כפולה)</b><ul><li>"עד כמה אתה חושב שמשחקי מחשב מקדמים אותך בחיים, ועד כמה לא?"</li><li>"מה המשחק נותן לך, ומה הוא לוקח ממך?"</li></ul></div></div>
+    <p class="why"><b>למה:</b> שאלה סגורה ("כן/לא") נגמרת ב"לא". שאלה כפולה נותנת לו לחשוב בשני כיוונים בלי להרגיש מואשם.</p></article>
+
+  <article class="sc"><h3>משתמשים במשחק כדי לדבר על החיים</h3>
+    <div class="yes"><b>שאלו</b><ul><li>"מה המשחק הראשון שאתה זוכר?"</li><li>"איזה תכונות יש לדמות שלך: חכם, אמיץ, נדיב, יצירתי?"</li><li>"איפה אתה מרגיש ככה גם מחוץ למשחק?"</li><li>"מה אתה עושה כשאתה מפסיד? מה זה אומר עליך?"</li></ul></div>
+    <p class="why"><b>למה:</b> במשחק הוא מתנסה בתכונות שהוא לא מעז להפעיל בחיים. אם הוא יזהה אותן, אפשר לעזור לו להעביר אותן החוצה.</p></article>
+
+  <article class="sc"><h3>"אני רק מבלה, זה לא בעיה"</h3>
+    <div class="say"><p class="no"><b>במקום</b>להתווכח על העובדות.</p>
+    <p class="yes"><b>אמרו</b>"אני מקבל שאתה נהנה. רק אני רוצה להבין אותך." ו"אני דואג שכל החיים נכנסים למשחק. אתה יכול לעזור לי להבין למה?"</p></div>
+    <p class="why"><b>למה:</b> כשמתווכחים, הוא מגן על המשחק. כשמתעניינים, הוא נפתח.</p></article>
+</section>
+
+<section id="weed">
+  <div class="sechead"><span class="tag">פרק 5</span><h2>גראס (קנאביס)</h2><p class="idea">אי אפשר לשלוט בעישון עצמו. אפשר להשפיע דרך קשר, מודעות ומוטיבציה. לא נלחמים בעישון אלא בהתמכרות, ורק בשיחה וחיבור.</p></div>
+
+  <article class="sc"><h3>מצאתם גראס בחדר</h3>
+    <div class="say"><p class="no"><b>במקום</b>"מצאתי את זה! גזלת לי אמון! אתה נענש!"</p>
+    <p class="yes"><b>אמרו</b>"מצאתי את זה בחדר, ואני רוצה לדבר. אני לא כועס, אני דואג. אפשר לשבת רגע?"</p></div>
+    <p class="why"><b>למה:</b> עונש לא מונע שימוש, הוא רק מרחיק. לבן מעשן יש כבר בושה, ועונש מוסיף עוד, אז הוא יסתיר.</p></article>
+
+  <article class="sc"><h3>הכינו את עצמכם לפני השיחה</h3>
+    <div class="yes"><ul><li>קודם שני ההורים מסכימים ביניהם על האמירה והגבולות.</li><li>ללמוד את הנושא: מה ההבדל מאלכוהול, מה הסיכונים באמת. הבן יודע יותר מכם, ואם יתפוס אתכם מגזימים הוא יפסיק להקשיב.</li><li>להיות מוכנים לטענות: "זה צמח", "זה פחות מסוכן מאלכוהול", "כולם עושים".</li><li>לא לטעון שקנאביס הוא כמו הרואין. אבל גם לא "סתם צמח": יש סיכונים אמיתיים, כמו איבוד שליטה, חרדה וקושי בלימודים.</li></ul></div></article>
+
+  <article class="sc"><h3>הוא אומר "הגראס מאפשר לי לדבר עם אחי"</h3>
+    <div class="yes"><b>אמרו</b><ul><li>"אני שומע שזה עוזר לך להתקרב אליו. איך אפשר ליצור את הקרבה הזאת גם בלי?"</li><li>"מה הגראס נותן לך?" ולהקשיב.</li></ul></div>
+    <p class="why"><b>למה:</b> לפי הספר, העישון נותן לבן חיבור, הקלה מבושה ושייכות. אם אתם מבינים את זה, אפשר להציע לו חלופות.</p></article>
+
+  <article class="sc"><h3>שיחה על שליטה, לא על חוק</h3>
+    <div class="say"><p class="no"><b>במקום</b>"אבל זה לא חוקי!"</p>
+    <div class="yes"><b>אמרו</b><ul><li>"אני רוצה שתהיה אדם שבוחר, לא שהחומר בוחר בשבילך."</li><li>"כמה אתה מעשן?" ואחרי זה: "זה הרבה, לא?"</li></ul></div></div>
+    <p class="why"><b>למה:</b> הדיון החשוב באמת הוא לא חוקיות אלא מתי השימוש נהפך למזיק. בן שמרגיש שהוא בשליטה לא נלחם בהוריו, הוא נלחם בהתמכרות.</p></article>
+
+  <article class="sc"><h3>הוא מחליט להפסיק</h3>
+    <div class="yes"><b>הכינו אותו מראש</b><ul><li>קשה להירדם בהתחלה, חלומות מוזרים, עצבנות, ירידה בתיאבון.</li><li>אם חזר לעשן פעם אחת, זה לא כישלון אלא חלק מהתהליך.</li><li>"אתה לא צריך להפסיק לעשן כדי שאוהב אותך": הקשר לא מותנה.</li></ul></div>
+    <p class="why"><b>למה:</b> הכנה מראש מונעת את המחשבה "ידעתי שאני דפוק". כשהאהבה לא מותנית, לא צריך להסתיר.</p></article>
+
+  <article class="sc"><h3>איך מתמודדים עם עישון בבית</h3>
+    <div class="yes"><ul><li>"אנחנו מעדיפים שיעשן בבית ולא יצא החוצה, כדי שלא יסתבך." ובכל זאת להסביר שאתם מקטינים סיכון, לא מאשרים.</li><li>גבול ברור עם הסבר, בלי נקמה.</li><li>להימנע ממימון עישון.</li></ul></div></article>
+</section>
+
+<section id="grow">
+  <div class="sechead"><span class="tag">פרק 6</span><h2>גברים צעירים שמתקשים להתבגר</h2><p class="idea">בגרות היא תהליך איטי ולא קורה ביום הולדת 18. הספר מדבר על "בגרות בהתהוות", בערך גיל 18 עד 30: חיפוש עצמי, חוסר יציבות והרגשה של "בין לבין". זה לא בהכרח כישלון.</p></div>
+
+  <div class="scroll"><table>
+    <thead><tr><th>מחשבה ישנה</th><th>מחשבה חדשה</th></tr></thead>
+    <tbody>
+      <tr><td>"בן 22, הוא כבר צריך לדעת מה הוא רוצה"</td><td>זה גיל של חיפוש. חוסר יציבות הוא רגיל.</td></tr>
+      <tr><td>"אם אעזור, אקלקל אותו"</td><td>היום צעירים צריכים יותר תמיכה כדי להפוך למבוגרים.</td></tr>
+      <tr><td>"שיפסיק לפחד, שיעשה משהו"</td><td>הוא מפחד מכישלון, כי כישלון נראה לו סופי.</td></tr>
+    </tbody></table></div>
+
+  <article class="sc"><h3>בן 23, גר בבית ולא עובד</h3>
+    <div class="say"><p class="no"><b>במקום</b>"אתה בן 23! מתי תתחיל לעשות משהו?!"</p>
+    <div class="yes"><b>אמרו</b><ul><li>"אתה חי בתקופה שבה צריך הרבה זמן כדי לדעת מה רוצים בחיים. איך זה מרגיש?"</li><li>"מה היה עוזר לך להתקדם?"</li></ul></div></div>
+    <p class="why"><b>למה:</b> לחץ מגביר חרדה ובושה ומרחיק אותו עוד.</p></article>
+
+  <article class="sc"><h3>"אני לא יודע מה אני רוצה"</h3>
+    <div class="yes"><b>שאלו שאלות קטנות, לא גדולות</b><ul><li>"איזה דבר קטן אתה יכול לעשות כדי ליצור אווירה נעימה יותר בבית?"</li><li>"איזו פעולה קטנה אתה יכול לעשות כדי להתחיל?"</li><li>"אם היית בטוח ב-100% שתצליח, מה היית עושה?"</li></ul></div>
+    <p class="why"><b>למה:</b> שאלות גדולות מעוררות חרדה ושיתוק. שאלות קטנות עוקפות אותה. לפעמים "אין לי מוטיבציה" הוא בעצם פחד מכישלון.</p></article>
+
+  <article class="sc"><h3>הוא עבד שבוע ואז הפסיק</h3>
+    <div class="say"><p class="no"><b>במקום</b>"ידעתי שזה לא יחזיק."</p>
+    <p class="yes"><b>אמרו</b>"שבוע זה התחלה. מה עבד? מה היה קשה?"</p></div>
+    <p class="why"><b>למה:</b> נסיגה היא חלק מהתהליך, והיא לא מבטלת את ההתקדמות.</p></article>
+
+  <article class="sc"><h3>שאלות לארוחה משפחתית</h3>
+    <div class="yes"><ul><li>"איך אתה מתמודד עם קושי?"</li><li>"עד כמה הקשיים בחייך תרמו לך, ועד כמה פגעו בך?"</li><li>"האם אתה חושב שקושי וסבל חשובים לחיים?"</li></ul></div>
+    <p class="why"><b>למה:</b> שיחה כזו עוזרת להבין אותו ומחזקת אותו.</p></article>
+
+  <article class="sc"><h3>תמיכה בלי לאפשר</h3>
+    <div class="yes"><b>הכלל</b><ul><li>גבולות הם חלק מתמיכה, לא היפוכה.</li><li>אם התמיכה לא מובילה לתזוזה, ייתכן שהיא רק מאפשרת את המצב.</li><li>להציב תנאים ברורים: "אנחנו תומכים בך, ואנחנו מצפים שתעשה X."</li><li>אפשר לצמצם שעות אינטרנט, להפסיק לממן סמים ואלכוהול, לדרוש לתקן מה שנשבר, ולערב מטפל או קרוב משפחה.</li></ul></div>
+    <p class="why"><b>למה:</b> הצעדים האלה לא נועדו להעניש אלא לשקף לו את ההתנהגות ולהניע אותו. לפני כל צעד כזה, התייעצו עם איש מקצוע.</p></article>
+</section>
+
+<section id="check" class="check">
+  <div class="sechead"><span class="tag">לסיום</span><h2>צ'קליסט לפני כל שיחה</h2></div>
+  <div class="box">
+    <ol>
+      <li>האם אני מתעניין באמת, או מנסה לשכנע?</li>
+      <li>האם אני מוסיף בושה, או מוריד?</li>
+      <li>האם שני ההורים מסכימים ביניהם?</li>
+      <li>האם אני נותן גבול ברור, בלי נקמה?</li>
+      <li>האם הקשר איתו נשאר בלי תנאי?</li>
+      <li>האם אני סבלני? שינוי לוקח זמן ויש נסיגות.</li>
+    </ol>
+  </div>
+  <p class="foot">מקור: "המשבר של הבנים", ד"ר אורי וינבלט, הוצאת פוקוס, 2020. הדף הוא סיכום אישי בניסוח שלי ולא תחליף לספר או לייעוץ מקצועי.</p>
+</section>
+</div>
+</div>
+<script>
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll('.tab'));
+  function show(id){
+    tabs.forEach(function(t){
+      var on=t.id===id;
+      t.setAttribute('aria-selected',on?'true':'false');
+      document.getElementById(t.getAttribute('aria-controls')).hidden=!on;
+    });
+    window.scrollTo(0,0);
+  }
+  tabs.forEach(function(t){
+    t.addEventListener('click',function(){show(t.id)});
+    t.addEventListener('keydown',function(e){
+      var i=tabs.indexOf(t),n=null;
+      if(e.key==='ArrowLeft')n=tabs[(i+1)%tabs.length];
+      if(e.key==='ArrowRight')n=tabs[(i+tabs.length-1)%tabs.length];
+      if(n){n.focus();show(n.id);e.preventDefault();}
+    });
+  });
+})();
+</script>
